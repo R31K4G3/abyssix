@@ -42,6 +42,7 @@ pub enum OpCode {
     Or               (/** [IN] from0 */             Register,  /** [IN] from1 */     Register,      /** [OUT] to */ Register),
     Xor              (/** [IN] from0 */             Register,  /** [IN] from1 */     Register,      /** [OUT] to */ Register),
     Shr              (/** [IN] from0 */             Register,  /** [IN] from1 */     Register,      /** [OUT] to */ Register),
+    ShrUnsigned      (/** [IN] from0 */             Register,  /** [IN] from1 */     Register,      /** [OUT] to */ Register),
     Shl              (/** [IN] from0 */             Register,  /** [IN] from1 */     Register,      /** [OUT] to */ Register),
     LtInt            (/** [IN] from0 */             Register,  /** [IN] from1 */     Register,      /** [OUT] to */ Register),
     LtFloat          (/** [IN] from0 */             Register,  /** [IN] from1 */     Register,      /** [OUT] to */ Register),
@@ -150,6 +151,14 @@ fn generate_expression_code(
             state.push(LabeledOpCode::without_label(OpCode::Pop(R2)));
             state.push(LabeledOpCode::without_label(OpCode::Pop(R1)));
             state.push(LabeledOpCode::without_label(OpCode::Shr(R1, R2, R3)));
+            state.push(LabeledOpCode::without_label(OpCode::Push(R3)));
+        }
+        Expression::ShrUnsigned(left, right) => {
+            generate_expression_code(left, state, name_table);
+            generate_expression_code(right, state, name_table);
+            state.push(LabeledOpCode::without_label(OpCode::Pop(R2)));
+            state.push(LabeledOpCode::without_label(OpCode::Pop(R1)));
+            state.push(LabeledOpCode::without_label(OpCode::ShrUnsigned(R1, R2, R3)));
             state.push(LabeledOpCode::without_label(OpCode::Push(R3)));
         }
         Expression::And(left, right) => {

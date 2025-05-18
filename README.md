@@ -224,8 +224,9 @@ is supported.
 ```
 1 << 1
 1 >> 1
+1 >>> 1
 ```
-Signed left shift and signed right shift is supported.
+Left shift, signed right shift and unsigned right shift is supported.
 
 ## Logical not operator
 ```

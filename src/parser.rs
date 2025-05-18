@@ -127,6 +127,7 @@ pub enum Expression {
     Xor(Box<Expression>, Box<Expression>),
     Shl(Box<Expression>, Box<Expression>),
     Shr(Box<Expression>, Box<Expression>),
+    ShrUnsigned(Box<Expression>, Box<Expression>),
     Itof(Box<Expression>),
     Ftoi(Box<Expression>),
     Neg(OperandType, Box<Expression>),
@@ -333,6 +334,8 @@ fn parse_bitshift(tokens: &mut Vec<Token>, d: &FuncSizeData) -> Expression {
             node = Expression::Shl(Box::new(node), Box::new(parse_additive(tokens, d)));
         } else if consume_token!(tokens, DoubleGt).is_some() {
             node = Expression::Shr(Box::new(node), Box::new(parse_additive(tokens, d)));
+        } else if consume_token!(tokens, TripleGt).is_some() {
+            node = Expression::ShrUnsigned(Box::new(node), Box::new(parse_additive(tokens, d)));
         } else {
             return node;
         }

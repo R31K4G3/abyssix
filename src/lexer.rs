@@ -12,6 +12,7 @@ pub enum Token {
     LtEq,
     GreaterThan,
     DoubleGt,
+    TripleGt,
     GtEq,
     Ampersand,
     Pipe,
@@ -109,7 +110,11 @@ pub fn parse(s: &str) -> Vec<Token> {
             b'>' => tokens.push(if next_if_matches!(iter, [b'=']).is_some() {
                 Token::GtEq
             } else if next_if_matches!(iter, [b'>']).is_some() {
-                Token::DoubleGt
+                if next_if_matches!(iter, [b'>']).is_some() {
+                    Token::TripleGt
+                } else {
+                    Token::DoubleGt
+                }
             } else {
                 Token::GreaterThan
             }),

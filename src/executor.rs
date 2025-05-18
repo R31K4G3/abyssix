@@ -237,6 +237,10 @@ pub fn execute(codes: Codes) {
                 // TODO: `>>` の右辺どうする？
                 r[r3] = Value::from_i64(r[r1].as_i64() >> (r[r2].as_i64().0 as usize));
             }
+            OpCode::ShrUnsigned(r1, r2, r3) => {
+                // TODO: `>>` の右辺どうする？
+                r[r3] = Value::from_i64(Wrapping((Wrapping(r[r1].as_i64().0 as u64) >> (r[r2].as_i64().0 as usize)).0 as i64));
+            }
 
             OpCode::LtInt(r1, r2, r3) => {
                 r[r3] = Value::from_i64(Wrapping(bool_to_int!(r[r1].as_i64() < r[r2].as_i64())));
