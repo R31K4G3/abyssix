@@ -234,3 +234,8 @@ Signed left shift and signed right shift is supported.
 The operator returns 0 when the passed value is not 0.
 The operator returns 1 when the passed value is 0.
 
+## Comment
+```
+// This is comment.
+// This doesn't affect the behavior.
+```
