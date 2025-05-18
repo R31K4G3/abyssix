@@ -1,0 +1,154 @@
+func printInt {
+  params 1;
+
+  alloc 24;
+  // 0: target to print
+  // 1-21: char buffer
+  // 22: buffer length
+  // 23: iteration variable
+
+  set.0  =  param.0;
+  if  get.0  int.==  0: {
+    putc 48; // print '0'
+    return 0;
+  } else if  get.0  int.<  0: {
+    set.0  =  int.-  get.0;
+    putc 45; // print '-'
+  } else {
+    // do nothing
+  }
+  while  get.0  int.>  0: {
+    set[1  int.+  get.22]  =  get.0  int.%  10;
+    set.0  =  get.0  int./  10;
+    set.22  =  get.22  int.+  1;
+  }
+  set.23  =  get.22  int.-  1;
+  while  get.23  int.>=  0: {
+    putc(48  int.+  get[1  int.+  get.23]);
+    set.23  =  get.23  int.-  1;
+  }
+}
+
+// func helloworld {
+//   params 0; alloc 0;
+
+//   // こ
+//   putc 227;
+//   putc 129;
+//   putc 147;
+
+//   // ん
+//   putc 227;
+//   putc 130;
+//   putc 147;
+
+//   // に
+//   putc 227;
+//   putc 129;
+//   putc 171;
+
+//   // ち
+//   putc 227;
+//   putc 129;
+//   putc 161;
+
+//   // は
+//   putc 227;
+//   putc 129;
+//   putc 175;
+
+//   putc 10;
+// }
+
+// func readAndPrint {
+//   params 0; alloc 1;
+
+//   while 1: {
+//     set.0  =  getc;
+//     if  get.0  int.>=  32: {
+//       if  get.0  int.<  126: {
+//         putc(1  int.+   get.0);
+//       } else {
+//         putc get.0;
+//       }
+//     } else {
+//       putc get.0;
+//     }
+//   }
+// }
+
+// func main {
+//   params 0; alloc 0;
+
+//   fibo();
+//   helloworld();
+
+//   f1(444,  int.-  123,  555,  666);
+
+//   // readAndPrint();
+// }
+
+// func fibo {
+//   params 0;
+
+//   alloc 50;
+
+//   set.0 = 3;
+//   set.1 = 1;
+//   set.2 = 1;
+
+//   while  get.0  int.<  50: {
+//     set[get.0]  =  get[get.0  int.-  1]  int.+  get[get.0  int.-  2];
+
+//     set.0  =  get.0  int.+  1;
+//   }
+
+//   set.0 = 1;
+//   while  get.0  int.<  50: {
+//     printInt(get[get.0]);
+//     putc 10;  // (linefeed)
+
+//     set.0  =  get.0  int.+  1;
+//   }
+// }
+
+// func f1 {
+//   params 4; alloc 3;
+
+//   printInt(param.0);
+//   putc 10;
+//   printInt(param.1);
+//   putc 10;
+//   printInt(param.2);
+//   putc 10;
+//   printInt(param.3);
+//   putc 10;
+//   printInt(f2());
+//   putc 10;
+// }
+
+// func f2 {
+//   params 0; alloc 0;
+
+//   return 999;
+// }
+
+func main {
+  params 0;
+  alloc 1;
+
+  set.0 = 1;
+  while  get.0  int.<=  100: {
+    if  get.0  int.%  15  int.==  0: {
+      putc 70; putc 105; putc 122; putc 122; putc 66; putc 117; putc 122; putc 122;
+    } else if  get.0  int.%  3  int.==  0: {
+      putc 70; putc 105; putc 122; putc 122;
+    } else if  get.0  int.%  5  int.==  0: {
+      putc 66; putc 117; putc 122; putc 122;
+    } else {
+      printInt(get.0);
+    }
+    putc 10;
+    set.0  =  1  int.+  get.0;
+  }
+}
